@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "face_engine.h"
 
 FaceEngine::FaceEngine(Adafruit_SSD1306& display) : _display(display) {
@@ -40,8 +41,8 @@ void FaceEngine::drawEye(int x, int y, int radius, bool leftEye) {
             break;
 
         case FACE_SURPRISED:
-            _display.drawCircle(x, y, radius + 2, SSD1306_WHITE); // Mata melotot besar
-            _display.fillCircle(x, y, 3, SSD1306_WHITE); // Pupil kecil di tengah
+            _display.drawCircle(x, y, radius + 2, SSD1306_WHITE); 
+            _display.fillCircle(x, y, 3, SSD1306_WHITE); 
             break;
     }
 }
@@ -53,7 +54,7 @@ void FaceEngine::drawMouth(int x, int y) {
         _display.drawLine(x - 2, y - 2, x, y, SSD1306_WHITE);
         _display.drawLine(x, y, x + 2, y - 2, SSD1306_WHITE);
     } else if (_currentExpr == FACE_SURPRISED) {
-        _display.drawCircle(x, y + 4, 3, SSD1306_WHITE); // Mulut "O"
+        _display.drawCircle(x, y + 4, 3, SSD1306_WHITE); 
     }
 }
 
