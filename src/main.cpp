@@ -5,10 +5,12 @@
 #include <ChronosESP32.h>
 #include "dirgamochi_config.h"
 #include "face_engine.h"
+#include "audio_engine.h"
 
 Adafruit_SSD1306 display(DG_OLED_WIDTH, DG_OLED_HEIGHT, &Wire, -1);
 ChronosESP32 chronos(DG_DEVICE_NAME);
 FaceEngine face(display);
+AudioEngine audio;
 
 volatile bool bleConnected = false;
 volatile bool newNotification = false;
@@ -22,7 +24,7 @@ struct Button {
     Button(uint8_t p) : pin(p) {}
 
     void begin() {
-        pinMode(pin, INPUT); // TTP223 mengirim HIGH saat disentuh
+        pinMode(pin, INPUT); 
         last = digitalRead(pin);
     }
 
@@ -56,12 +58,12 @@ void connectionCallback(bool state) {
 void notificationCallback(Notification n) {
     newNotification = true;
     Serial.printf("[Notif] %s: %s\n", n.title.c_str(), n.message.c_str());
-    face.setExpression(FACE_SURPRISED); // Ekspresi terkejut saat ada notif
+    face.setExpression(FACE_SURPRISED); 
 }
 
 void setup() {
     Serial.begin(115200);
-    delay(3000); // Mencegah USB CDC terputus saat boot awal
+    delay(3000); 
 
     Serial.println("Starting Dirgamochi-C3...");
 
@@ -83,8 +85,8 @@ void setup() {
     delay(1000);
 
     face.begin();
+    audio.begin();
 
-    // Setup Chronos Bluetooth
     chronos.setConnectionCallback(connectionCallback);
     chronos.setNotificationCallback(notificationCallback);
     chronos.begin();
