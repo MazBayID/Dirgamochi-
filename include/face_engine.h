@@ -5,7 +5,8 @@ enum FaceExpression {
     FACE_NORMAL,
     FACE_HAPPY,
     FACE_SLEEPY,
-    FACE_CUTE
+    FACE_CUTE,
+    FACE_SURPRISED // Tambahan agar tidak error di main.cpp
 };
 
 class FaceEngine {
